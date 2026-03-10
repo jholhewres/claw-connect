@@ -11,7 +11,6 @@ metadata:
   homepage: "https://integraclaw.dev"
   requires:
     env:
-      - INTEGRACLAW_URL
       - INTEGRACLAW_API_KEY
 ---
 
@@ -23,7 +22,7 @@ IMPORTANT: Connections are managed by users through the Integraclaw dashboard. T
 
 ## Setup
 
-Follow these steps to configure Integraclaw for the first time. If the user already has `INTEGRACLAW_URL` and `INTEGRACLAW_API_KEY` set, skip to [Quick Start](#quick-start).
+Follow these steps to configure Integraclaw for the first time. If the user already has `INTEGRACLAW_API_KEY` set, skip to [Quick Start](#quick-start).
 
 ### Step 1 — Create an account
 
@@ -36,14 +35,13 @@ Go to [https://integraclaw.dev/register](https://integraclaw.dev/register) and c
 3. Give it a name (e.g. "DevClaw", "OpenClaw", "My Agent")
 4. **Copy the key immediately** — it starts with `ic_` and is only shown once
 
-### Step 3 — Set environment variables
+### Step 3 — Set environment variable
 
 ```bash
-export INTEGRACLAW_URL="https://integraclaw.dev"
 export INTEGRACLAW_API_KEY="ic_YOUR_KEY_HERE"
 ```
 
-For persistent configuration, add these to your shell profile (`~/.bashrc`, `~/.zshrc`) or your agent's `.env` file.
+For persistent configuration, add this to your shell profile (`~/.bashrc`, `~/.zshrc`) or your agent's `.env` file.
 
 ### Step 4 — Connect a Google service
 
@@ -59,7 +57,7 @@ Repeat for each Google service you want to use.
 ### Step 5 — Verify
 
 ```bash
-curl -s "$INTEGRACLAW_URL/api/v1/connections" \
+curl -s "https://integraclaw.dev/api/v1/connections" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY"
 ```
 
@@ -85,11 +83,11 @@ If you get a 401 error, check that `INTEGRACLAW_API_KEY` is set correctly.
 
 ```bash
 # List available connections
-curl -s "$INTEGRACLAW_URL/api/v1/connections" \
+curl -s "https://integraclaw.dev/api/v1/connections" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY"
 
 # Call an action (see references for params)
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"provider":"google","service":"gmail","action":"send_email","params":{"to":"user@example.com","subject":"Hello!","body":"Sent via Integraclaw"}}'
@@ -98,7 +96,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 ## Base URL
 
 ```
-$INTEGRACLAW_URL/api/v1
+https://integraclaw.dev/api/v1
 ```
 
 ## Authentication
@@ -107,13 +105,6 @@ All requests require the Integraclaw API key in the Authorization header:
 
 ```
 Authorization: Bearer $INTEGRACLAW_API_KEY
-```
-
-**Environment variables:**
-
-```bash
-export INTEGRACLAW_URL="https://integraclaw.dev"
-export INTEGRACLAW_API_KEY="ic_YOUR_KEY"
 ```
 
 ## How It Works
@@ -130,7 +121,7 @@ The agent never manages OAuth flows, tokens, or connection setup. That's all han
 Check which services the user has connected:
 
 ```bash
-curl -s "$INTEGRACLAW_URL/api/v1/connections" \
+curl -s "https://integraclaw.dev/api/v1/connections" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY"
 ```
 
@@ -152,7 +143,7 @@ Each connection has `provider`, `service`, `status`, and optionally `email`. Onl
 You can filter by app:
 
 ```bash
-curl -s "$INTEGRACLAW_URL/api/v1/connections?app=google-gmail&status=connected" \
+curl -s "https://integraclaw.dev/api/v1/connections?app=google-gmail&status=connected" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY"
 ```
 
@@ -161,7 +152,7 @@ curl -s "$INTEGRACLAW_URL/api/v1/connections?app=google-gmail&status=connected" 
 Execute actions through `POST /api/v1/action`:
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"provider":"PROVIDER","service":"SERVICE","action":"ACTION_NAME","params":{...}}'
@@ -197,21 +188,21 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 List all available actions:
 
 ```bash
-curl -s "$INTEGRACLAW_URL/api/v1/actions" \
+curl -s "https://integraclaw.dev/api/v1/actions" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY"
 ```
 
 Filter by app:
 
 ```bash
-curl -s "$INTEGRACLAW_URL/api/v1/actions?app=google-gmail" \
+curl -s "https://integraclaw.dev/api/v1/actions?app=google-gmail" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY"
 ```
 
 List actions with full parameter schemas (MCP-compatible tools):
 
 ```bash
-curl -s "$INTEGRACLAW_URL/api/v1/tools" \
+curl -s "https://integraclaw.dev/api/v1/tools" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY"
 ```
 
@@ -264,7 +255,7 @@ See [references/](references/) for detailed action guides per service:
 ### Gmail — Send Email
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"provider":"google","service":"gmail","action":"send_email","params":{"to":"user@example.com","subject":"Weekly Report","body":"Please find the report attached.","cc":"manager@example.com"}}'
@@ -273,7 +264,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 ### Gmail — Search Messages
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"provider":"google","service":"gmail","action":"search_messages","params":{"query":"from:boss@company.com newer_than:7d","max_results":5}}'
@@ -282,7 +273,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 ### Google Calendar — Create Event
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"provider":"google","service":"calendar","action":"create_event","params":{"summary":"Team Meeting","start":"2026-03-10T10:00:00","end":"2026-03-10T11:00:00","timezone":"America/Sao_Paulo","attendees":["colleague@example.com"]}}'
@@ -291,7 +282,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 ### Google Sheets — Read Values
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"provider":"google","service":"sheets","action":"read_range","params":{"spreadsheet_id":"SPREADSHEET_ID","range":"Sheet1!A1:D10"}}'
@@ -300,7 +291,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 ### Google Sheets — Append Rows
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"provider":"google","service":"sheets","action":"append_rows","params":{"spreadsheet_id":"SPREADSHEET_ID","range":"Sheet1!A1","values":[["Name","Email","Status"],["John","john@example.com","Active"]]}}'
@@ -309,7 +300,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 ### Google Drive — List Files
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"provider":"google","service":"drive","action":"list_files","params":{"page_size":20}}'
@@ -318,7 +309,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 ### Google Contacts — Search Contacts
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"provider":"google","service":"contacts","action":"search_contacts","params":{"query":"John","page_size":10}}'
@@ -327,7 +318,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 ### Google Tasks — Create Task
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"provider":"google","service":"tasks","action":"create_task","params":{"task_list_id":"TASK_LIST_ID","title":"Review document","notes":"Review the Q1 report","due":"2026-03-15T00:00:00Z"}}'
@@ -344,10 +335,9 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 
 ### Troubleshooting
 
-1. **Environment variables not set?**
+1. **API key not set?**
 
 ```bash
-echo "URL: $INTEGRACLAW_URL"
 echo "KEY: ${INTEGRACLAW_API_KEY:0:10}..."
 ```
 

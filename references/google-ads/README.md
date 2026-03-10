@@ -11,7 +11,7 @@
 Execute a GAQL (Google Ads Query Language) search against a customer account.
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -35,7 +35,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 List all Google Ads customer accounts accessible to the authenticated user.
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -54,7 +54,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 Retrieve details for a specific customer account.
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{

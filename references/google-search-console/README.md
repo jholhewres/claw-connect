@@ -11,7 +11,7 @@
 List all verified sites in Search Console for the authenticated user.
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -30,7 +30,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 Retrieve details for a specific site.
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -50,7 +50,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 Query Search Analytics data: clicks, impressions, CTR, and position by dimension.
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -80,7 +80,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 List sitemaps submitted for a site.
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{

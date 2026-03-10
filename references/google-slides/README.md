@@ -11,7 +11,7 @@
 Retrieve metadata and structure of a Google Slides presentation.
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -31,7 +31,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 Create a new blank Google Slides presentation.
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -51,7 +51,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 Get a specific slide/page from a presentation by its object ID.
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -75,7 +75,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 Apply multiple updates to a presentation in a single request (add slides, insert text, update shapes, etc.).
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{

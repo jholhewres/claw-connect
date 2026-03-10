@@ -11,7 +11,7 @@
 Create a new Google Meet meeting space. Returns the meeting URI (join link) and meeting code.
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -29,7 +29,7 @@ No parameters required.
 Get details of a Google Meet space.
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -51,7 +51,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 End the active conference in a Meet space. All participants will be removed.
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -73,7 +73,7 @@ curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
 List conference records (past and ongoing meetings).
 
 ```bash
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{

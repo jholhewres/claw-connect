@@ -6,10 +6,9 @@ API gateway with managed auth. Connect your AI to Google Workspace (Gmail, Calen
 
 1. Create an account at [https://integraclaw.dev/register](https://integraclaw.dev/register)
 2. Create an API key at [https://integraclaw.dev/dashboard/api-keys](https://integraclaw.dev/dashboard/api-keys)
-3. Set environment variables:
+3. Set your API key:
 
 ```bash
-export INTEGRACLAW_URL="https://integraclaw.dev"
 export INTEGRACLAW_API_KEY="ic_YOUR_KEY_HERE"
 ```
 
@@ -21,11 +20,11 @@ See [SKILL.md](SKILL.md) for the full setup guide with verification steps.
 
 ```bash
 # List available connections
-curl -s "$INTEGRACLAW_URL/api/v1/connections" \
+curl -s "https://integraclaw.dev/api/v1/connections" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY"
 
 # Call an action (see references/ for params)
-curl -s -X POST "$INTEGRACLAW_URL/api/v1/action" \
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"provider":"google","service":"gmail","action":"send_email","params":{"to":"user@example.com","subject":"Hello!","body":"Sent via Integraclaw"}}'

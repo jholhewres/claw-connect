@@ -129,13 +129,22 @@ curl -s "https://integraclaw.dev/api/v1/connections" \
     "id": "21fd90f9-...",
     "provider": "google",
     "service": "gmail",
-    "email": "user@gmail.com",
+    "email": "john@company.com",
+    "status": "connected"
+  },
+  {
+    "id": "a7a7b0c5-...",
+    "provider": "google",
+    "service": "gmail",
+    "email": "john.personal@gmail.com",
     "status": "connected"
   }
 ]
 ```
 
-Each connection has `provider`, `service`, `status`, and optionally `email`. Only use connections with `status: "connected"`.
+Each connection has `provider`, `service`, `status`, and `email` (the account used during OAuth). Only use connections with `status: "connected"`.
+
+**Multiple connections per service:** Users can connect multiple accounts for the same service (e.g. two Gmail accounts with different emails). When this happens, you **must** use the `email` field to identify each connection and **ask the user which account to use** before calling an action. Pass the chosen connection's `id` as `connection_id` in the action request. If there is only one connection for a service, `connection_id` can be omitted.
 
 You can filter by app:
 
@@ -160,7 +169,7 @@ curl -s -X POST "https://integraclaw.dev/api/v1/action" \
 - `service` (required) — Service name (see table below)
 - `action` (required) — Action name (see references for each service)
 - `params` (required) — Action parameters (see references for each action)
-- `connection_id` (optional) — Specific connection ID. If omitted, uses the first active connection for that provider/service.
+- `connection_id` (optional) — Specific connection ID (the `id` from the connections list). **Required when the user has multiple connections for the same provider/service** (e.g. two Gmail accounts). If omitted, uses the first active connection for that provider/service.
 
 **Response:**
 ```json
@@ -350,7 +359,7 @@ If empty, follow the [Setup](#setup) instructions (Steps 1–3).
 
 1. **Always list connections first** — before calling any action, check what services the user has connected.
 
-2. **Use `connection_id` for disambiguation** — if the user has multiple connections for the same provider/service, specify which one to use.
+2. **Handle multiple accounts per service** — users can connect the same service with different accounts (e.g. work Gmail and personal Gmail). When you see multiple connections for the same `provider`+`service` with different `email` values, **ask the user which account they want to use** before proceeding. Then pass the chosen `id` as `connection_id` in the action request.
 
 3. **Consult references for params** — each service has a detailed reference in [references/](references/) with all actions and their parameters.
 
@@ -366,6 +375,6 @@ If empty, follow the [Setup](#setup) instructions (Steps 1–3).
 
 1. The `action` field in the request maps to the tool method as `{provider}_{service}_{action}`.
 2. Integraclaw handles all OAuth token refresh automatically — the agent never deals with tokens.
-3. Use `connection_id` only when the user has multiple connections for the same service.
+3. Users can have multiple connections for the same service with different accounts. Always check the `email` field to distinguish them and pass `connection_id` when there are multiple.
 4. If a 404 error occurs, the user needs to connect the service through the dashboard first. The agent cannot create connections.
 5. All native API docs are still relevant for understanding response formats — Integraclaw returns the raw API response in the `data` field.

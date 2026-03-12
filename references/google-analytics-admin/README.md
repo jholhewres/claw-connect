@@ -40,7 +40,7 @@ curl -s -X POST "https://integraclaw.dev/api/v1/action" \
     "service": "analytics-admin",
     "action": "list_properties",
     "params": {
-      "filter": "parent:accounts/123456789",
+      "account_id": "123456789",
       "page_size": 50
     }
   }'
@@ -48,8 +48,9 @@ curl -s -X POST "https://integraclaw.dev/api/v1/action" \
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `filter` | string | no | Filter expression (e.g. `parent:accounts/123456789`) |
+| `account_id` | string | yes | GA4 account ID (numeric, e.g. `123456789` — the `accounts/` prefix is added automatically) |
 | `page_size` | integer | no | Number of properties per page |
+| `page_token` | string | no | Pagination token from previous response |
 
 ### get_property
 

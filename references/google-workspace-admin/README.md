@@ -31,6 +31,8 @@ curl -s -X POST "https://integraclaw.dev/api/v1/action" \
 | `domain` | string | no | Filter by domain (required for multi-domain orgs) |
 | `max_results` | integer | no | Max users per page |
 | `page_token` | string | no | Pagination token from previous response |
+| `query` | string | no | Search query (e.g. `name:'John'`, `email:alice*`, `orgName='Engineering'`) |
+| `order_by` | string | no | Sort order (e.g. `email`, `familyName`, `givenName`) |
 
 ### get_user
 
@@ -77,6 +79,7 @@ curl -s -X POST "https://integraclaw.dev/api/v1/action" \
 | `domain` | string | no | Filter by domain |
 | `max_results` | integer | no | Max groups per page |
 | `page_token` | string | no | Pagination token from previous response |
+| `query` | string | no | Search query (e.g. `name='Engineering'`, `email:eng*`) |
 
 ### get_group
 

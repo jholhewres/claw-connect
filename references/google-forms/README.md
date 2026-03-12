@@ -45,6 +45,7 @@ curl -s -X POST "https://integraclaw.dev/api/v1/action" \
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `title` | string | yes | Title for the new form |
+| `document_title` | string | no | Document title (shown in Google Drive). Defaults to the form title if omitted. |
 
 ### list_responses
 

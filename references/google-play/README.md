@@ -31,6 +31,7 @@ curl -s -X POST "https://integraclaw.dev/api/v1/action" \
 | `package_name` | string | yes | Android package name (e.g. `com.example.myapp`) |
 | `max_results` | integer | no | Max reviews to return |
 | `token` | string | no | Pagination token from previous response |
+| `translation_language` | string | no | BCP-47 language code to translate reviews into (e.g. `en`, `pt-BR`) |
 
 ### get_review
 

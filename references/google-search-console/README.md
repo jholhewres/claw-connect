@@ -73,7 +73,8 @@ curl -s -X POST "https://integraclaw.dev/api/v1/action" \
 | `start_date` | string | yes | Start date (YYYY-MM-DD) |
 | `end_date` | string | yes | End date (YYYY-MM-DD) |
 | `dimensions` | array | no | Dimensions to group by (query, page, country, device, etc.) |
-| `row_limit` | integer | no | Max rows to return |
+| `row_limit` | integer | no | Max rows to return (default 1000, max 25000) |
+| `start_row` | integer | no | Row offset for pagination (default 0). Use with `row_limit` to page through large result sets. |
 
 ### list_sitemaps
 

@@ -371,6 +371,10 @@ If empty, follow the [Setup](#setup) instructions (Steps 1–3).
 
 7. **One API for everything** — every action follows the same pattern: `POST /api/v1/action` with `provider`, `service`, `action`, `params`. No need to know different API endpoints.
 
+## Update Skill
+
+To check for updates and install the latest version of this skill, follow the [Update Claw Connect Skill](references/integraclaw-update/README.md) reference.
+
 ## Notes
 
 1. The `action` field in the request maps to the tool method as `{provider}_{service}_{action}`.

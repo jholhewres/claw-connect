@@ -1,10 +1,10 @@
 ---
 name: claw-connect
-description: "Connect to Google Workspace APIs (Gmail, Calendar, Drive, Sheets, Docs, Meet, YouTube, and more) with managed OAuth. Use this skill when users want to interact with Google services. Security: The INTEGRACLAW_API_KEY authenticates with Integraclaw but grants NO access to third-party services by itself. Each service requires explicit OAuth authorization by the user through Integraclaw's dashboard. Access is strictly scoped to connections the user has authorized. Provided by Integraclaw (https://integraclaw.dev)."
+description: "Connect to Google Workspace, GitHub, HubSpot, Slack, Notion, Trello, and 20+ more services with managed OAuth, and process documents (extract text, extract structured data, generate PDF/Excel/DOCX). Use this skill when users want to interact with any supported service, extract text or structured data from documents, or generate documents. Security: The INTEGRACLAW_API_KEY authenticates with Integraclaw but grants NO access to third-party services by itself. Each service requires explicit OAuth authorization by the user through Integraclaw's dashboard. Processing tools (extract_text, extract_data, generate_pdf, generate_excel, generate_docx) require only the API key — no OAuth connection needed. Access is strictly scoped to connections the user has authorized. Provided by Integraclaw (https://integraclaw.dev)."
 compatibility: Requires network access and valid Integraclaw API key
 metadata:
   author: integraclaw
-  version: "2.1"
+  version: "2.3"
   homepage: "https://integraclaw.dev"
   requires:
     env:
@@ -13,9 +13,9 @@ metadata:
 
 # Claw Connect
 
-Semantic actions for Google Workspace APIs using managed OAuth connections, provided by [Integraclaw](https://integraclaw.dev). Integraclaw lets you call service actions through a single unified API.
+Semantic actions for Google Workspace, GitHub, HubSpot, Slack, Notion, Trello, and more — provided by [Integraclaw](https://integraclaw.dev). Integraclaw lets you call service actions through a single unified API.
 
-IMPORTANT: Connections are managed by users through the Integraclaw dashboard. The agent's role is to **list available connections** and **call actions** using the references for each service. The agent never manages OAuth flows, tokens, or connection setup.
+IMPORTANT: OAuth connections are managed by users through the Integraclaw dashboard. The agent's role is to **list available connections** and **call actions** using the references for each service. The agent never manages OAuth flows, tokens, or connection setup. **Processing tools** (extract_text, extract_data, generate_pdf, generate_excel, generate_docx) do not require OAuth connections — they work with just the API key.
 
 ## Setup
 
@@ -236,6 +236,44 @@ curl -s "https://integraclaw.dev/api/v1/tools" \
 | Play | `google-play` | list_reviews, get_review, reply_review |
 | Workspace Admin | `google-workspace-admin` | list_users, get_user, list_groups, get_group, list_group_members |
 
+### GitHub
+
+| Service | App Name | Actions |
+|---------|----------|---------|
+| GitHub | `github` | list_repos, get_repo, list_branches, create_repo, list_issues, get_issue, create_issue, update_issue, add_issue_comment, list_pull_requests, get_pull_request, create_pull_request, list_pr_comments, get_authenticated_user, get_user, search_repos, search_issues, create_gist |
+
+### HubSpot
+
+| Service | App Name | Actions |
+|---------|----------|---------|
+| HubSpot | `hubspot` | list_contacts, get_contact, create_contact, update_contact, delete_contact, search_contacts, list_companies, get_company, create_company, update_company, delete_company, search_companies, list_deals, get_deal, create_deal, update_deal, delete_deal, search_deals, list_owners, get_owner, get_properties |
+
+### Slack
+
+| Service | App Name | Actions |
+|---------|----------|---------|
+| Slack | `slack` | list_channels, get_channel, channel_history, channel_replies, join_channel, invite_to_channel, send_message, update_message, delete_message, list_users, get_user, lookup_user_by_email, add_reaction, remove_reaction, get_reactions, upload_file, list_files, get_team_info |
+
+### Notion
+
+| Service | App Name | Actions |
+|---------|----------|---------|
+| Notion | `notion` | search, get_database, create_database, get_data_source, query_data_source, update_data_source, get_page, create_page, update_page, archive_page, get_block, get_block_children, append_block_children, update_block, delete_block, list_users, get_user, get_bot_user |
+
+### Trello
+
+| Service | App Name | Actions |
+|---------|----------|---------|
+| Trello | `trello` | list_boards, get_board, create_board, get_lists, create_list, archive_list, get_cards, get_card, create_card, update_card, delete_card, add_comment, get_labels, create_label, get_board_members, create_checklist, add_checklist_item, search |
+
+### Document Processing
+
+These tools do **not** require an OAuth connection — they work with just the API key.
+
+| Service | App Name | Actions |
+|---------|----------|---------|
+| Document Processing | `integraclaw-processing` | extract_text, extract_data, generate_pdf, generate_excel, generate_docx |
+
 See [references/](references/) for detailed action guides per service:
 
 - [Gmail](references/google-mail/README.md) — Send, list, search, read, draft
@@ -255,6 +293,12 @@ See [references/](references/) for detailed action guides per service:
 - [Google Ads](references/google-ads/README.md) — Search, customers
 - [Google Play](references/google-play/README.md) — Reviews, replies
 - [Google Workspace Admin](references/google-workspace-admin/README.md) — Users, groups, members
+- [GitHub](references/github/README.md) — Repos, issues, PRs, gists, users, search
+- [HubSpot](references/hubspot/README.md) — Contacts, companies, deals, owners, properties
+- [Slack](references/slack/README.md) — Channels, messages, users, reactions, files, team
+- [Notion](references/notion/README.md) — Pages, databases, blocks, users, search
+- [Trello](references/trello/README.md) — Boards, lists, cards, labels, checklists, search
+- [Document Processing](references/integraclaw-processing/README.md) — Extract text/data, generate PDF, Excel, DOCX
 
 ## Examples
 
@@ -328,6 +372,53 @@ curl -s -X POST "https://integraclaw.dev/api/v1/action" \
   -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"provider":"google","service":"tasks","action":"create_task","params":{"task_list_id":"TASK_LIST_ID","title":"Review document","notes":"Review the Q1 report","due":"2026-03-15T00:00:00Z"}}'
+```
+
+### Document Processing — Extract Text from PDF
+
+No OAuth connection needed — works with just the API key.
+
+```bash
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
+  -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
+  -F "provider=integraclaw" \
+  -F "service=processing" \
+  -F "action=extract_text" \
+  -F "file=@report.pdf"
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "status": 200,
+  "data": {
+    "text": "extracted content...",
+    "pages": 12,
+    "format": "pdf",
+    "chars": 45230
+  }
+}
+```
+
+### Document Processing — Generate PDF
+
+```bash
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
+  -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"provider":"integraclaw","service":"processing","action":"generate_pdf","params":{"title":"Report","content":[{"type":"paragraph","text":"Hello world"}]}}'
+```
+
+### Document Processing — Extract Structured Data
+
+```bash
+curl -s -X POST "https://integraclaw.dev/api/v1/action" \
+  -H "Authorization: Bearer $INTEGRACLAW_API_KEY" \
+  -F "provider=integraclaw" \
+  -F "service=processing" \
+  -F "action=extract_data" \
+  -F "file=@data.xlsx"
 ```
 
 ## Error Handling

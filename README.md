@@ -1,6 +1,6 @@
 # Claw Connect
 
-API gateway with managed auth. Connect your AI to Google Workspace (Gmail, Calendar, Drive, Sheets, Docs, Meet, YouTube, and more) with a single API key.
+API gateway with managed auth. Connect your AI to Google Workspace, GitHub, HubSpot, Slack, Notion, Trello, and 20+ more services with a single API key.
 
 ## Setup
 
@@ -42,7 +42,7 @@ The agent never manages OAuth, tokens, or connection setup. Integraclaw handles 
 
 Google Workspace: Gmail, Calendar, Drive, Sheets, Docs, Slides, Forms, Tasks, Contacts, Meet, YouTube, Search Console, Analytics Admin, Analytics Data, Ads, Play, Workspace Admin.
 
-More providers coming soon.
+GitHub, HubSpot, Slack, Notion, Trello, and more.
 
 See [SKILL.md](SKILL.md) for the full table with app names and actions, and [references/](references/) for detailed action guides per service.
 
